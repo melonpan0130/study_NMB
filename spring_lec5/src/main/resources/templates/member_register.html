@@ -1,0 +1,85 @@
+<style>
+input.error {
+	border: 2px solid red;
+}
+
+.text_error {
+	color: red;
+	background: yellow;
+}
+</style>
+<meta charset="utf-8" />
+<!-- 폼 태그의 th:object에 form-backing bean 설정 -->
+<!-- 커맨드 객체 바로 접근 가능 (단, 변수 접근할 때 form-backing bean 클래스 이름을 camelCase로 써야함을 주의) -->
+<form th:action="@{/member}" th:object="${member}" method="POST">
+	<!-- th:field에서 member의 입력받아야 할 속성을 지정 -->
+	<!--
+		th:field의 역할
+		1. name이라는 id를 만들어줌
+		2. name이라는 name을 만들어줌 (key값이 name) (핸들러에서 값을 받아옴)
+		빠꾸당한 값이 그대로 들어있음
+		
+		th가 앞에 붇으면 thymeleaf가 한번 봐야함
+		프로세싱을 해줌(처리해줌)
+		처음이면 null이니까 그냥 빈 문자열 넣어줌
+		th:value = getname()으로 내용 가져옴
+		
+		<input type="text" th:field="*{name}" />
+		=> 다음과 같은 형식으로 속성 자동 생성
+		<input type="text" id="name" name="name" th:value="*{name}" />
+	-->
+	<!--  th:field = *{name} this의 멤버 name을 가져옴 -->
+	<span>이름</span> 
+	<input type="text" th:field="*{name}" th:class="${#fields.hasErrors('name')} ? 'error'" />
+	<!-- 모든 에러 객체를 받아 반복문 형식으로 출력 -->
+	<ul>
+	<!-- errors('name') ; name에 있는 모든 에러가 다 출력됨(list)에 넣고 each는 반복문을 이용해 값을 넣어준다. -->
+		<li th:each="msg : ${#fields.errors('name')}" th:text="${msg}"></li>
+	</ul>
+	<br />
+	
+	<span>나이</span>
+	<!-- th:errorclass 속성을 이용하여 에러 검증후 클래스 추가 과정을 간소화 가능! -->
+	<input type="text" th:field="*{age}" th:errorclass="error" />
+	<!-- <input type="text" th:field="*{age}" th:class="${#fields.hasErrors('age')} ? 'error'" /> -->
+	<!-- th:errors 속성 이용하여 에러메시지1<br />에러메시지2<br />에러메시지n형식으로 출력 -->
+	<p th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+	<br /> 
+	
+	<span>이메일</span> 
+	<input type="text" th:field="*{email}" th:class="${#fields.hasErrors('email')} ?'error'" />
+	<!--#fields : field객체
+		hasErrors는 에러가 하나라도 있으면 class에 error라는 클래스를 추가해줌 
+	-->
+	<!-- 적당한 메시지 보여주기로 처리 -->
+	<span th:if="${#fields.hasErrors('email')}" th:class="text_error"
+		th:text="'에러 발생! 제대로 입력해주세요.'"></span> 
+	<br /> 
+	
+	<span>비밀번호</span> 
+	<input type="text" th:field="*{password}" th:class="${#fields.hasErrors('password')} ? 'error'" />
+	<!-- 이미지로 경고 표시 -->
+	<img th:if="${#fields.hasErrors('password')}" th:src="@{/warning.png}"></span>
+	<br /> <span>성별</span> <img
+		th:if="${#fields.hasErrors('validGender')}" th:src="@{/warning.png}"></span>
+	<ul>
+		<li th:each="g : ${ {'남성', '여성'} }"><input type="radio"
+			th:field="*{gender}" th:value="${g}" /> <label
+			th:for="${#ids.prev('gender')}" th:text="${g}"></label></li>
+	</ul>
+
+	<span>취미</span>
+	<ul>
+		<li th:each="h : ${ {'운동', '독서', '여행', '음악 감상', '게임'} }">
+		<input type="checkbox" th:field="*{hobbies}" th:value="${h}" /> 
+		<label th:for="${#ids.prev('hobbies')}" th:text="${h}"></label></li>
+	</ul>
+	<span>관심사</span> <select th:field="*{interests}">
+		<!-- 복수 응답도 가능 -->
+		<!-- <select th:field="*{interests}" size="2" multiple> -->
+		<option th:each="i : ${ {'경제', '문화', '생활', '스포츠'} }" th:value="${i}"
+			th:text="${i}"></option>
+	</select> 
+	
+	<input type="submit" value="가입 신청">
+</form>
