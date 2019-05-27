@@ -1,0 +1,37 @@
+<style>
+input.error {
+    border: 2px solid red;
+}
+.text_error {
+    color: red;
+    background: yellow;
+}
+</style>
+​
+<form th:object="${formData}" th:action="@{/apply_form}" method="POST" enctype="multipart/form-data">
+    <span>성명</span> 
+    <input type="text" th:field="*{name}" th:class="${#fields.hasErrors('name')} ? 'error'" /><br />
+    <ul th:each="msg : ${#fields.errors('name')}">
+        <li th:text="${msg}"></li>
+    </ul>
+    
+    <span>이메일</span> 
+    <input type="text" th:field="*{email}" th:class="${#fields.hasErrors('email')} ? 'error'" /><br />
+    <ul th:each="msg : ${#fields.errors('email')}">
+        <li th:text="${msg}"></li>
+    </ul>
+    
+    <span>전화번호</span> 
+    <input type="text" th:field="*{phoneNumber}" th:class="${#fields.hasErrors('phoneNumber')} ? 'error'" /><br />
+    <ul th:each="msg : ${#fields.errors('phoneNumber')}">
+        <li th:text="${msg}"></li>
+    </ul>
+    
+    <span>사진 (JPG, JPEG)</span>
+    <input type="file" name="files" accept=".jpg,.jpeg" /><br />
+    
+    <span>지원서 (HWP)</span>
+    <input type="file" name="files" accept=".hwp" /><br />
+    
+    <input type="submit" value="업로드" />
+</form>

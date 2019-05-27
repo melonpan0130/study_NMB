@@ -1,0 +1,8 @@
+mysql -uroot -p1234
+
+CREATE DATABASE spring_boot_jpa
+CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+show databases;
+
+use spring_boot_jpa;

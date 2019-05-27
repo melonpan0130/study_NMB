@@ -1,0 +1,11 @@
+<h1>신청 완료</h1>
+<p th:text="|이름 : ${data.name}|"></p>
+<p th:text="|이메일 : ${data.email}|"></p>
+<p th:text="|전화번호 : ${data.phoneNumber}|"></p>
+<ul>
+    <li th:each="file : ${files}">
+        파일 이름 : <span th:text="${file.originalFilename}"></span><br />
+        파일 MIME 타입 : <span th:text="${file.contentType}"></span><br />
+        사이즈 : <span th:text="${file.size}"></span>
+    </li>
+</ul>

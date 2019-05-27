@@ -1,4 +1,4 @@
-package com.example.spring_lec5;
+package com.example.spring_lec5.example;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -63,7 +63,6 @@ class Member implements Serializable {
 		return "Member [name=" + name + ", age=" + age + ", email=" + email + ", password=" + password + ", gender="
 				+ gender + ", hobbies=" + hobbies + ", interests=" + interests + "]";
 	}
-	
 }
 
 @Controller
