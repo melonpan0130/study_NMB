@@ -1,0 +1,10 @@
+<h1>회원 정보 수정</h1>
+<form th:if="${member != null}" th:object="${member}" th:action="@{/members/{id}(id=*{id})}" method="POST">
+	<!-- GET, POST외의 요청은 _method라는 값을 전달 필요 -->
+	<input type="hidden" name="_method" value="PUT" />
+	<label>Username</label> <input type="text" name="username" th:value="*{username}" /><br />
+	<label>Password</label> <input type="password" name="password" th:value="*{password}" /><br />
+	<label>이름</label> <input type="text" name="name" th:value="*{name}" /><br />
+	<input type="submit" value="수정" />
+</form>
+<p th:unless="${member != null}">회원 정보 미존재.</p>

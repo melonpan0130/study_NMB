@@ -1,0 +1,9 @@
+<h1>회원 리스트 <span th:text="|(총 ${count}명)|"></span></h1>
+<ul>
+	<li th:each="member : ${members}">
+		<p th:text="${member.id}"></p>
+		<p th:text="${member.username}"></p>
+		<p th:text="${member.name}"></p>
+		<p th:text="${member.createdAt}"></p>
+	</li>
+</ul>

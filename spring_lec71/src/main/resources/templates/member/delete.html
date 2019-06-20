@@ -1,0 +1,8 @@
+<h1>회원 정보 삭제</h1>
+<form th:if="${member != null}" th:object="${member}" th:action="@{/members/{id}(id=*{id})}" method="POST">
+	<!-- GET, POST외의 요청은 _method라는 값을 전달 필요 -->
+	<input type="hidden" name="_method" value="DELETE" />
+	<h1 th:text="|*{username} 회원을 삭제합니까?|" /></h1>
+	<input type="submit" value="삭제" />
+</form>
+<p th:unless="${member != null}">회원 정보 미존재.</p>
