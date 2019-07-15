@@ -1,0 +1,12 @@
+<html>
+	<head>
+		<script>
+			window.onload = function () {
+				location.href = document.getElementById("link").href;
+			}
+		</script>
+	</head>
+	<body>
+		<a id="link" th:href="${url}"></a>
+	</body>
+</html>
